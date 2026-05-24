@@ -66,3 +66,33 @@ export async function authFetch(path, options = {}) {
 
   return parseResponse(response)
 }
+
+/**
+ * Igual que authFetch pero devuelve la Response sin parsear.
+ * Útil para descargar binarios (PDF, etc.).
+ */
+export async function authFetchRaw(path, options = {}) {
+  const url = `${BASE_URL}${path}`
+  const token = useAuthStore.getState().token
+
+  const headers = {
+    ...(token ? { Authorization: `Bearer ${token}` } : {}),
+    ...(options.headers ?? {}),
+  }
+
+  const response = await fetch(url, { ...options, headers })
+
+  if (response.status === 401) {
+    useAuthStore.getState().clearAuth()
+    if (typeof window !== 'undefined') {
+      window.location.href = '/login'
+    }
+    throw new Error('Sesión expirada. Inicia sesión de nuevo.')
+  }
+
+  if (!response.ok) {
+    throw new Error(`API error ${response.status}`)
+  }
+
+  return response
+}

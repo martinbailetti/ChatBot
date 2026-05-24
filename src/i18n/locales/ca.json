@@ -169,7 +169,10 @@
     "empty": "Sense missatges encara",
     "emptyHint": "Escriu una pregunta per començar.",
     "errorNetwork": "No s'ha pogut connectar amb el servei de xat.",
-    "errorEmpty": "L'assistent no ha retornat resposta."
+    "errorEmpty": "L'assistent no ha retornat resposta.",
+    "conversations": "Converses",
+    "newConversation": "Nova conversa",
+    "noConversations": "No hi ha converses"
   },
   "profile": {
     "title": "El meu compte",

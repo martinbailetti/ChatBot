@@ -169,7 +169,10 @@
     "empty": "Sin mensajes aún",
     "emptyHint": "Escribe una pregunta para empezar.",
     "errorNetwork": "No se pudo conectar con el servicio de chat.",
-    "errorEmpty": "El asistente no devolvió respuesta."
+    "errorEmpty": "El asistente no ha devuelto respuesta.",
+    "conversations": "Conversaciones",
+    "newConversation": "Nueva conversación",
+    "noConversations": "No hay conversaciones"
   },
   "profile": {
     "title": "Mi cuenta",

@@ -88,7 +88,7 @@ export default function App() {
           <Route path="/conversaciones" element={<ProtectedRoute adminOnly><ConversationsPage /></ProtectedRoute>} />
           <Route path="/mensajes"       element={<ProtectedRoute adminOnly><MessagesPage /></ProtectedRoute>} />
           <Route path="/documentos"     element={<ProtectedRoute adminOnly><DocumentsPage /></ProtectedRoute>} />
-          <Route path="/documentos/detalle" element={<ProtectedRoute adminOnly><DocumentDetailPage /></ProtectedRoute>} />
+          <Route path="/documentos/detalle" element={<ProtectedRoute><DocumentDetailPage /></ProtectedRoute>} />
           <Route path="/ingestion"      element={<ProtectedRoute adminOnly><IngestionPage /></ProtectedRoute>} />
           <Route path="/faqs"           element={<ProtectedRoute adminOnly><FaqsPage /></ProtectedRoute>} />
         </Routes>
