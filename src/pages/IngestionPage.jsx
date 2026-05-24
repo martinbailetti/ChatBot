@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { RefreshCw, AlertCircle, Play, CheckCircle2, XCircle, Activity } from 'lucide-react'
 import { authFetch } from '@/utils/apiFetch'
 import { cn } from '@/utils/cn'
-import { useAuthStore } from '@/store/authStore'
+import useAuthStore from '@/store/useAuthStore'
 
 function StatusBadge({ online }) {
   return online ? (

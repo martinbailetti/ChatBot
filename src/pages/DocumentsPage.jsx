@@ -4,7 +4,7 @@ import { Link } from 'react-router-dom'
 import { FileText, Trash2, ChevronRight, AlertCircle, RefreshCw, Search } from 'lucide-react'
 import { authFetch } from '@/utils/apiFetch'
 import { cn } from '@/utils/cn'
-import { useAuthStore } from '@/store/authStore'
+import useAuthStore from '@/store/useAuthStore'
 
 export default function DocumentsPage() {
   const { t }      = useTranslation()
@@ -22,7 +22,8 @@ export default function DocumentsPage() {
     setError(null)
     try {
       const res = await authFetch('/api/documents')
-      setDocuments(Array.isArray(res.data) ? res.data : [])
+      const list = res.data?.documentos ?? res.data
+      setDocuments(Array.isArray(list) ? list : [])
     } catch (err) {
       setError(err.message)
     } finally {

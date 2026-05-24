@@ -3,7 +3,7 @@ import { useTranslation } from 'react-i18next'
 import { Plus, Check, X, AlertCircle, RefreshCw, HelpCircle, Pencil, Trash2 } from 'lucide-react'
 import { authFetch } from '@/utils/apiFetch'
 import { cn } from '@/utils/cn'
-import { useAuthStore } from '@/store/authStore'
+import useAuthStore from '@/store/useAuthStore'
 
 const EMPTY_FAQ = { pregunta: '', respuesta: '' }
 
@@ -76,6 +76,7 @@ export default function FaqsPage() {
   const [error, setError]             = useState(null)
   const [showForm, setShowForm]       = useState(false)
   const [editIdx, setEditIdx]         = useState(null)
+  const [saved, setSaved]             = useState(false)
 
   const load = useCallback(async function () {
     setLoading(true)
@@ -107,6 +108,8 @@ export default function FaqsPage() {
       setTitle(d.title ?? newTitle)
       setDescription(d.description ?? newDesc)
       setFaqs(Array.isArray(d.faqs) ? d.faqs : newFaqs)
+      setSaved(true)
+      setTimeout(function () { setSaved(false) }, 3000)
     } catch (err) {
       setError(err.message)
     } finally {
@@ -193,14 +196,22 @@ export default function FaqsPage() {
               className="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
             />
           </div>
-          <button
-            onClick={handleHeaderSave}
-            disabled={saving}
-            className="flex items-center gap-1.5 rounded-md bg-slate-700 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50 dark:bg-slate-600 dark:hover:bg-slate-500"
-          >
-            <Check className="h-4 w-4" />
-            {saving ? t('faqs.saving') : t('faqs.saveHeader')}
-          </button>
+          <div className="flex items-center gap-3">
+            <button
+              onClick={handleHeaderSave}
+              disabled={saving}
+              className="flex items-center gap-1.5 rounded-md bg-slate-700 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50 dark:bg-slate-600 dark:hover:bg-slate-500"
+            >
+              <Check className="h-4 w-4" />
+              {saving ? t('faqs.saving') : t('faqs.saveHeader')}
+            </button>
+            {saved && (
+              <span className="flex items-center gap-1 text-sm text-emerald-600 dark:text-emerald-400">
+                <Check className="h-4 w-4" />
+                {t('common.saved')}
+              </span>
+            )}
+          </div>
         </div>
       )}
 

@@ -86,20 +86,31 @@ export default function DocumentDetailPage() {
         <div className="space-y-4">
           {/* Metadatos */}
           <div className="flex flex-wrap gap-3">
-            {detail.chunks && (
+            {detail.chunks != null && (
               <span className="rounded-full bg-indigo-50 px-3 py-1 text-xs font-medium text-indigo-700 dark:bg-indigo-950 dark:text-indigo-300">
                 {t('documents.colChunks')}: {detail.chunks}
               </span>
             )}
-            {detail.pages && (
+            {detail.size != null && (
               <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300">
-                {t('documents.pages')}: {detail.pages}
+                {(detail.size / 1024).toFixed(0)} KB
+              </span>
+            )}
+            {detail.carpeta && (
+              <span className="rounded-full bg-slate-100 px-3 py-1 text-xs font-medium text-slate-600 dark:bg-slate-800 dark:text-slate-300">
+                {detail.carpeta}
               </span>
             )}
           </div>
 
-          {/* Contenido de los chunks */}
-          {Array.isArray(detail.chunks_content) && detail.chunks_content.length > 0 ? (
+          {/* Texto completo ingestado */}
+          {detail.texto ? (
+            <div className="rounded-lg border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900">
+              <pre className="whitespace-pre-wrap font-sans text-sm leading-relaxed text-slate-700 dark:text-slate-300">
+                {detail.texto}
+              </pre>
+            </div>
+          ) : Array.isArray(detail.chunks_content) && detail.chunks_content.length > 0 ? (
             <div className="space-y-3">
               {detail.chunks_content.map((chunk, i) => (
                 <div
