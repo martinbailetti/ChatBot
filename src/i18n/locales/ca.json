@@ -1,0 +1,305 @@
+{
+  "home": {
+    "title": "Plataforma de gestió empresarial",
+    "subtitle": "Una demo moderna i funcional que mostra la base tècnica d'una aplicació web empresarial.",
+    "features": {
+      "title": "Capacitats principals",
+      "ops": {
+        "title": "Gestió operativa",
+        "desc": "Centralitza els processos de la teva organització amb fluxos clars i traçables."
+      },
+      "reports": {
+        "title": "Informes i mètriques",
+        "desc": "Visualitza dades clau en temps real amb vistes resumides i exportables."
+      },
+      "integrations": {
+        "title": "Integracions externes",
+        "desc": "Connecta amb eines externes mitjançant APIs estàndard documentades."
+      },
+      "automation": {
+        "title": "Automatització",
+        "desc": "Redueix tasques repetitives amb regles configurables i accions programades."
+      }
+    },
+    "stats": {
+      "title": "Resum d'activitat",
+      "modules": "Mòduls actius",
+      "uptime": "Disponibilitat",
+      "integrations": "Integracions",
+      "users": "Usuaris registrats"
+    },
+    "cta": "Veure serveis"
+  },
+  "services": {
+    "title": "Serveis disponibles",
+    "subtitle": "Explora les àrees funcionals que cobreix aquesta plataforma demo.",
+    "ops": {
+      "title": "Gestió operativa",
+      "desc": "Administra recursos, processos i equips des d'un únic punt d'accés. Dissenyat per escalar amb la teva organització."
+    },
+    "reports": {
+      "title": "Informes i anàlisi",
+      "desc": "Genera i exporta informes detallats. Filtra per data, àrea i criteri per obtenir vistes accionables."
+    },
+    "integrations": {
+      "title": "Integracions",
+      "desc": "Connecta amb ERPs, CRMs, plataformes de comunicació i altres sistemes mitjançant connectors configurables."
+    },
+    "automation": {
+      "title": "Automatització de processos",
+      "desc": "Defineix regles de negoci, disparadors i fluxos automàtics per reduir la intervenció manual."
+    },
+    "support": {
+      "title": "Suport tècnic",
+      "desc": "Accedeix a documentació tècnica, guies d'ús i canals de suport directament des de la plataforma."
+    },
+    "config": {
+      "title": "Configuració avançada",
+      "desc": "Personalitza la plataforma segons les necessitats de la teva empresa: idioma, zona horària, notificacions i més."
+    }
+  },
+  "about": {
+    "title": "Quant a aquesta demo",
+    "intro": "Aquesta aplicació és una demostració tècnica d'una SPA empresarial moderna construïda amb React 18, Vite 5 i Tailwind CSS 3.",
+    "purpose": "El seu objectiu és mostrar com estructurar una aplicació web d'escala mitjana: components reutilitzables, estat global amb Zustand, internacionalització amb i18next, enrutament amb React Router DOM i estils coherents amb Tailwind.",
+    "values": {
+      "title": "Principis tècnics",
+      "performance": {
+        "title": "Rendiment",
+        "desc": "Construcció optimitzada amb Vite 5 i divisió de codi automàtica."
+      },
+      "a11y": {
+        "title": "Accessibilitat",
+        "desc": "Semàntica HTML correcta, contrast adequat i navegació per teclat."
+      },
+      "i18n": {
+        "title": "Internacionalització",
+        "desc": "Suport natiu per a espanyol, català i anglès amb detecció automàtica."
+      },
+      "maintainability": {
+        "title": "Mantenibilitat",
+        "desc": "Arquitectura modular, components desacoblats i codi ben estructurat."
+      },
+      "testing": {
+        "title": "Proves",
+        "desc": "Tests unitaris i d'integració amb Vitest i Testing Library."
+      },
+      "ux": {
+        "title": "Experiència d'usuari",
+        "desc": "Disseny sobri, clar i responsive adaptat a entorns de treball."
+      }
+    },
+    "stack": "Stack tècnic",
+    "stackItems": "React 18 · Vite 5 · Tailwind CSS 3 · Zustand · React Router DOM v6 · i18next · lucide-react · Vitest"
+  },
+  "contact": {
+    "title": "Contacte",
+    "subtitle": "Envia'ns un missatge i ens posarem en contacte amb tu.",
+    "name": "Nom",
+    "namePlaceholder": "El teu nom",
+    "email": "Correu electrònic",
+    "emailPlaceholder": "tu@empresa.com",
+    "company": "Empresa",
+    "companyPlaceholder": "Nom de la teva empresa",
+    "message": "Missatge",
+    "messagePlaceholder": "Descriu la teva consulta...",
+    "send": "Enviar missatge",
+    "sending": "Enviant...",
+    "success": "Missatge enviat! Et respondrem aviat.",
+    "errors": {
+      "nameRequired": "El nom és obligatori.",
+      "emailRequired": "El correu electrònic és obligatori.",
+      "emailInvalid": "Introdueix un correu electrònic vàlid.",
+      "messageRequired": "El missatge no pot estar buit."
+    }
+  },
+  "notFound": {
+    "title": "Pàgina no trobada",
+    "desc": "La ruta que has sol·licitat no existeix.",
+    "back": "Tornar a l'inici"
+  },
+  "common": {
+    "loading": "Carregant...",
+    "learnMore": "Saber més",
+    "backHome": "Inici",
+    "cancel": "Cancel·lar",
+    "save": "Desar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "actions": "Accions",
+    "refresh": "Actualitzar",
+    "search": "Cercar..."
+  },
+  "lang": {
+    "es": "Español",
+    "ca": "Català",
+    "en": "English"
+  },
+  "auth": {
+    "title": "Iniciar sessió",
+    "subtitle": "Accedeix al teu compte per continuar.",
+    "email": "Correu electrònic",
+    "password": "Contrasenya",
+    "login": "Iniciar sessió",
+    "loggingIn": "Entrant...",
+    "logout": "Tancar sessió",
+    "user": "Usuari",
+    "welcome": "Benvingut/da",
+    "errorEmailRequired": "El correu electrònic és obligatori.",
+    "errorPasswordRequired": "La contrasenya és obligatòria."
+  },
+  "dashboard": {
+    "title": "Tauler de control",
+    "refresh": "Actualitzar",
+    "profileCard": "El meu perfil",
+    "firstName": "Nom",
+    "lastName": "Cognoms",
+    "sessionCard": "Estat de la sessió",
+    "sessionActive": "Sessió activa",
+    "sessionDesc": "La teva sessió està autenticada i activa."
+  },
+  "chat": {
+    "title": "ChatBot",
+    "subtitle": "Consulta la documentació tècnica mitjançant IA.",
+    "placeholder": "Escriu la teva pregunta…",
+    "send": "Enviar",
+    "clear": "Nova conversa",
+    "hint": "Intro per enviar · Majús+Intro per nova línia",
+    "empty": "Sense missatges encara",
+    "emptyHint": "Escriu una pregunta per començar.",
+    "errorNetwork": "No s'ha pogut connectar amb el servei de xat.",
+    "errorEmpty": "L'assistent no ha retornat resposta."
+  },
+  "profile": {
+    "title": "El meu compte",
+    "sectionData": "Dades personals",
+    "sectionPassword": "Canviar contrasenya",
+    "emailReadOnly": "L'email no es pot canviar.",
+    "saveBtn": "Desar canvis",
+    "saving": "Desant...",
+    "saveSuccess": "Perfil actualitzat correctament.",
+    "saveError": "No s'ha pogut desar el perfil.",
+    "currentPassword": "Contrasenya actual",
+    "newPassword": "Nova contrasenya",
+    "confirmPassword": "Confirmar nova contrasenya",
+    "pwBtn": "Canviar contrasenya",
+    "pwSuccess": "Contrasenya canviada correctament.",
+    "pwError": "No s'ha pogut canviar la contrasenya.",
+    "errors": {
+      "firstNameRequired": "El nom és obligatori.",
+      "lastNameRequired": "Els cognoms són obligatoris.",
+      "currentRequired": "Introdueix la teva contrasenya actual.",
+      "newRequired": "La nova contrasenya és obligàtoria.",
+      "newMin": "Mínim 8 caràcters.",
+      "confirmMismatch": "Les contrasenyes no coincideixen."
+    }
+  },
+  "users": {
+    "title": "Usuaris",
+    "subtitle": "Gestiona els usuaris del sistema.",
+    "list": "Llistat d'usuaris",
+    "newUser": "Nou usuari",
+    "nameEmail": "Nom / Email",
+    "createdAt": "Alta",
+    "empty": "No hi ha usuaris registrats.",
+    "firstName": "Nom",
+    "firstNamePlaceholder": "Joan",
+    "lastName": "Cognoms",
+    "lastNamePlaceholder": "García",
+    "passwordConfirm": "Confirmar contrasenya",
+    "createBtn": "Crear usuari",
+    "creating": "Creant...",
+    "createSuccess": "Usuari creat correctament!",
+    "createError": "No s'ha pogut crear l'usuari.",
+    "fetchError": "No s'ha pogut carregar la llista d'usuaris.",
+    "type": "Tipus",
+    "typeAdmin": "Administrador",
+    "typeDefault": "Estàndard",
+    "errors": {
+      "emailRequired": "L'email és obligatori.",
+      "emailInvalid": "Introdueix un email vàlid.",
+      "firstNameRequired": "El nom és obligatori.",
+      "lastNameRequired": "Els cognoms són obligatoris.",
+      "passwordRequired": "La contrasenya és obligàtoria.",
+      "passwordMin": "Mínim 8 caràcters.",
+      "passwordMismatch": "Les contrasenyes no coincideixen.",
+      "typeInvalid": "El tipus ha de ser Administrador o Estàndard."
+    }
+  },
+  "nav": {
+    "home": "Inici",
+    "services": "Serveis",
+    "about": "Quant a",
+    "contact": "Contacte",
+    "chat": "ChatBot",
+    "chatbot_menu": "ChatBot",
+    "conversations": "Converses",
+    "messages": "Missatges",
+    "documents_menu": "Documents",
+    "documents_list": "Llistat",
+    "ingestion": "Ingesta",
+    "faqs": "FAQs",
+    "toggleDark": "Canviar tema",
+    "openMenu": "Obrir menú",
+    "closeMenu": "Tancar menú"
+  },
+  "conversations": {
+    "title": "Converses",
+    "subtitle": "Historial de totes les converses.",
+    "colTitle": "Títol",
+    "colUser": "Usuari",
+    "colMessages": "Missatges",
+    "colUpdated": "Darrera activitat",
+    "untitled": "Sense títol",
+    "viewMessages": "Veure missatges",
+    "confirmDelete": "Eliminar aquesta conversa?",
+    "empty": "No hi ha converses registrades."
+  },
+  "messages": {
+    "noConversation": "No s'ha especificat cap conversa.",
+    "empty": "Aquesta conversa no té missatges.",
+    "notFound": "Sense informació"
+  },
+  "documents": {
+    "title": "Documents indexats",
+    "subtitle": "{{count}} documents trobats.",
+    "colName": "Nom",
+    "colFolder": "Carpeta",
+    "colChunks": "Fragments",
+    "viewDetail": "Veure detall",
+    "confirmDelete": "Eliminar aquest document de l'índex?",
+    "empty": "No hi ha documents indexats.",
+    "noRuta": "No s'ha especificat cap document.",
+    "detailNotFound": "Document no trobat.",
+    "pages": "Pàgines",
+    "chunk": "Fragment",
+    "page": "Pàg."
+  },
+  "ingestion": {
+    "title": "Ingesta de documents",
+    "subtitle": "Gestiona la sincronització de l'índex vectorial.",
+    "serviceStatus": "Estat del servei ChatIA",
+    "serviceStatusDesc": "Comprova si el servei RAG està operatiu.",
+    "syncTitle": "Sincronització manual",
+    "syncDesc": "Llança una sincronització completa dels documents amb l'índex vectorial.",
+    "syncButton": "Sincronitzar ara",
+    "syncing": "Sincronitzant...",
+    "syncSuccess": "Sincronització completada.",
+    "confirmSync": "Iniciar sincronització de l'índex?"
+  },
+  "faqs": {
+    "title": "Preguntes freqüents",
+    "subtitle": "Gestiona les respostes a preguntes habituals.",
+    "headerTitle": "Títol de la pàgina",
+    "headerDesc": "Descripció introductòria",
+    "saveHeader": "Desar capçalera",
+    "saving": "Desant...",
+    "question": "Pregunta",
+    "questionPlaceholder": "Quina és la pregunta?",
+    "answer": "Resposta",
+    "answerPlaceholder": "Escriu la resposta completa...",
+    "addNew": "Nova FAQ",
+    "confirmDelete": "Eliminar aquesta FAQ?",
+    "empty": "No hi ha preguntes freqüents configurades."
+  }
+}

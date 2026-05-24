@@ -1,0 +1,317 @@
+{
+  "home": {
+    "title": "Plataforma de gestión empresarial",
+    "subtitle": "Una demo moderna y funcional que muestra la base técnica de una aplicación web empresarial.",
+    "features": {
+      "title": "Capacidades principales",
+      "ops": {
+        "title": "Gestión operativa",
+        "desc": "Centraliza los procesos de tu organización con flujos claros y trazables."
+      },
+      "reports": {
+        "title": "Informes y métricas",
+        "desc": "Visualiza datos clave en tiempo real con vistas resumidas y exportables."
+      },
+      "integrations": {
+        "title": "Integraciones externas",
+        "desc": "Conecta con herramientas externas mediante APIs estándar documentadas."
+      },
+      "automation": {
+        "title": "Automatización",
+        "desc": "Reduce tareas repetitivas con reglas configurables y acciones programadas."
+      }
+    },
+    "stats": {
+      "title": "Resumen de actividad",
+      "modules": "Módulos activos",
+      "uptime": "Disponibilidad",
+      "integrations": "Integraciones",
+      "users": "Usuarios registrados"
+    },
+    "cta": "Ver servicios"
+  },
+  "services": {
+    "title": "Servicios disponibles",
+    "subtitle": "Explora las áreas funcionales que cubre esta plataforma demo.",
+    "ops": {
+      "title": "Gestión operativa",
+      "desc": "Administra recursos, procesos y equipos desde un único punto de acceso. Diseñado para escalar con tu organización."
+    },
+    "reports": {
+      "title": "Informes y análisis",
+      "desc": "Genera y exporta informes detallados. Filtra por fecha, área y criterio para obtener vistas accionables."
+    },
+    "integrations": {
+      "title": "Integraciones",
+      "desc": "Conecta con ERPs, CRMs, plataformas de comunicación y otros sistemas mediante conectores configurables."
+    },
+    "automation": {
+      "title": "Automatización de procesos",
+      "desc": "Define reglas de negocio, disparadores y flujos automáticos para reducir intervención manual."
+    },
+    "support": {
+      "title": "Soporte técnico",
+      "desc": "Accede a documentación técnica, guías de uso y canales de soporte directamente desde la plataforma."
+    },
+    "config": {
+      "title": "Configuración avanzada",
+      "desc": "Personaliza la plataforma según las necesidades de tu empresa: idioma, zona horaria, notificaciones y más."
+    }
+  },
+  "about": {
+    "title": "Acerca de esta demo",
+    "intro": "Esta aplicación es una demostración técnica de una SPA empresarial moderna construida con React 18, Vite 5 y Tailwind CSS 3.",
+    "purpose": "Su objetivo es mostrar cómo estructurar una aplicación web de escala media: componentes reutilizables, estado global con Zustand, internacionalización con i18next, enrutamiento con React Router DOM y estilos coherentes con Tailwind.",
+    "values": {
+      "title": "Principios técnicos",
+      "performance": {
+        "title": "Rendimiento",
+        "desc": "Construcción optimizada con Vite 5 y división de código automática."
+      },
+      "a11y": {
+        "title": "Accesibilidad",
+        "desc": "Semántica HTML correcta, contraste adecuado y navegación por teclado."
+      },
+      "i18n": {
+        "title": "Internacionalización",
+        "desc": "Soporte nativo para español, catalán e inglés con detección automática."
+      },
+      "maintainability": {
+        "title": "Mantenibilidad",
+        "desc": "Arquitectura modular, componentes desacoplados y código bien estructurado."
+      },
+      "testing": {
+        "title": "Pruebas",
+        "desc": "Tests unitarios y de integración con Vitest y Testing Library."
+      },
+      "ux": {
+        "title": "Experiencia de usuario",
+        "desc": "Diseño sobrio, claro y responsive adaptado a entornos de trabajo."
+      }
+    },
+    "stack": "Stack técnico",
+    "stackItems": "React 18 · Vite 5 · Tailwind CSS 3 · Zustand · React Router DOM v6 · i18next · lucide-react · Vitest"
+  },
+  "contact": {
+    "title": "Contacto",
+    "subtitle": "Envíanos un mensaje y nos pondremos en contacto contigo.",
+    "name": "Nombre",
+    "namePlaceholder": "Tu nombre",
+    "email": "Correo electrónico",
+    "emailPlaceholder": "tu@empresa.com",
+    "company": "Empresa",
+    "companyPlaceholder": "Nombre de tu empresa",
+    "message": "Mensaje",
+    "messagePlaceholder": "Describe tu consulta...",
+    "send": "Enviar mensaje",
+    "sending": "Enviando...",
+    "success": "¡Mensaje enviado! Te responderemos en breve.",
+    "errors": {
+      "nameRequired": "El nombre es obligatorio.",
+      "emailRequired": "El correo electrónico es obligatorio.",
+      "emailInvalid": "Introduce un correo electrónico válido.",
+      "messageRequired": "El mensaje no puede estar vacío."
+    }
+  },
+  "notFound": {
+    "title": "Página no encontrada",
+    "desc": "La ruta que has solicitado no existe.",
+    "back": "Volver al inicio"
+  },
+  "common": {
+    "loading": "Cargando...",
+    "learnMore": "Saber más",
+    "backHome": "Inicio",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "actions": "Acciones",
+    "refresh": "Actualizar",
+    "search": "Buscar..."
+  },
+  "lang": {
+    "es": "Español",
+    "ca": "Català",
+    "en": "English"
+  },
+  "auth": {
+    "title": "Iniciar sesión",
+    "subtitle": "Accede a tu cuenta para continuar.",
+    "email": "Correo electrónico",
+    "password": "Contraseña",
+    "login": "Iniciar sesión",
+    "loggingIn": "Entrando...",
+    "logout": "Cerrar sesión",
+    "user": "Usuario",
+    "welcome": "Bienvenido/a",
+    "errorEmailRequired": "El correo electrónico es obligatorio.",
+    "errorPasswordRequired": "La contraseña es obligatoria."
+  },
+  "dashboard": {
+    "title": "Panel de control",
+    "refresh": "Actualizar",
+    "profileCard": "Mi perfil",
+    "firstName": "Nombre",
+    "lastName": "Apellidos",
+    "sessionCard": "Estado de la sesión",
+    "sessionActive": "Sesión activa",
+    "sessionDesc": "Tu sesión está autenticada y activa."
+  },
+  "chat": {
+    "title": "ChatBot",
+    "subtitle": "Consulta la documentación técnica mediante IA.",
+    "placeholder": "Escribe tu pregunta…",
+    "send": "Enviar",
+    "clear": "Nueva conversación",
+    "hint": "Intro para enviar · Mayús+Intro para nueva línea",
+    "empty": "Sin mensajes aún",
+    "emptyHint": "Escribe una pregunta para empezar.",
+    "errorNetwork": "No se pudo conectar con el servicio de chat.",
+    "errorEmpty": "El asistente no devolvió respuesta."
+  },
+  "profile": {
+    "title": "Mi cuenta",
+    "sectionData": "Datos personales",
+    "sectionPassword": "Cambiar contraseña",
+    "emailReadOnly": "El email no se puede cambiar.",
+    "saveBtn": "Guardar cambios",
+    "saving": "Guardando...",
+    "saveSuccess": "Perfil actualizado correctamente.",
+    "saveError": "No se pudo guardar el perfil.",
+    "currentPassword": "Contraseña actual",
+    "newPassword": "Nueva contraseña",
+    "confirmPassword": "Confirmar nueva contraseña",
+    "pwBtn": "Cambiar contraseña",
+    "pwSuccess": "Contraseña cambiada correctamente.",
+    "pwError": "No se pudo cambiar la contraseña.",
+    "errors": {
+      "firstNameRequired": "El nombre es obligatorio.",
+      "lastNameRequired": "Los apellidos son obligatorios.",
+      "currentRequired": "Introduce tu contraseña actual.",
+      "newRequired": "La nueva contraseña es obligatoria.",
+      "newMin": "Mínimo 8 caracteres.",
+      "confirmMismatch": "Las contraseñas no coinciden."
+    }
+  },
+  "users": {
+    "title": "Usuarios",
+    "subtitle": "Gestiona los usuarios del sistema.",
+    "list": "Listado de usuarios",
+    "newUser": "Nuevo usuario",
+    "nameEmail": "Nombre / Email",
+    "createdAt": "Alta",
+    "empty": "No hay usuarios registrados.",
+    "firstName": "Nombre",
+    "firstNamePlaceholder": "Juan",
+    "lastName": "Apellidos",
+    "lastNamePlaceholder": "García",
+    "passwordConfirm": "Confirmar contraseña",
+    "createBtn": "Crear usuario",
+    "creating": "Creando...",
+    "createSuccess": "¡Usuario creado correctamente!",
+    "createError": "No se pudo crear el usuario.",
+    "fetchError": "No se pudo cargar la lista de usuarios.",
+    "type": "Tipo",
+    "typeAdmin": "Administrador",
+    "typeDefault": "Estándar",
+    "errors": {
+      "emailRequired": "El email es obligatorio.",
+      "emailInvalid": "Introduce un email válido.",
+      "firstNameRequired": "El nombre es obligatorio.",
+      "lastNameRequired": "Los apellidos son obligatorios.",
+      "passwordRequired": "La contraseña es obligatoria.",
+      "passwordMin": "Mínimo 8 caracteres.",
+      "passwordMismatch": "Las contraseñas no coinciden.",
+      "typeInvalid": "El tipo debe ser Administrador o Estándar."
+    }
+  },
+  "common": {
+    "loading": "Cargando...",
+    "learnMore": "Saber más",
+    "backHome": "Inicio",
+    "cancel": "Cancelar",
+    "save": "Guardar",
+    "edit": "Editar",
+    "delete": "Eliminar",
+    "actions": "Acciones",
+    "refresh": "Actualizar",
+    "search": "Buscar..."
+  },
+  "nav": {
+    "home": "Inicio",
+    "services": "Servicios",
+    "about": "Acerca de",
+    "contact": "Contacto",
+    "chat": "ChatBot",
+    "chatbot_menu": "ChatBot",
+    "conversations": "Conversaciones",
+    "messages": "Mensajes",
+    "documents_menu": "Documentos",
+    "documents_list": "Listado",
+    "ingestion": "Ingesta",
+    "faqs": "FAQs",
+    "toggleDark": "Cambiar tema",
+    "openMenu": "Abrir menú",
+    "closeMenu": "Cerrar menú"
+  },
+  "conversations": {
+    "title": "Conversaciones",
+    "subtitle": "Historial de todas las conversaciones.",
+    "colTitle": "Título",
+    "colUser": "Usuario",
+    "colMessages": "Mensajes",
+    "colUpdated": "Última actividad",
+    "untitled": "Sin título",
+    "viewMessages": "Ver mensajes",
+    "confirmDelete": "¿Eliminar esta conversación?",
+    "empty": "No hay conversaciones registradas."
+  },
+  "messages": {
+    "noConversation": "No se ha especificado ninguna conversación.",
+    "empty": "Esta conversación no tiene mensajes.",
+    "notFound": "Sin información"
+  },
+  "documents": {
+    "title": "Documentos indexados",
+    "subtitle": "{{count}} documentos encontrados.",
+    "colName": "Nombre",
+    "colFolder": "Carpeta",
+    "colChunks": "Fragmentos",
+    "viewDetail": "Ver detalle",
+    "confirmDelete": "¿Eliminar este documento del índice?",
+    "empty": "No hay documentos indexados.",
+    "noRuta": "No se ha especificado ningún documento.",
+    "detailNotFound": "Documento no encontrado.",
+    "pages": "Páginas",
+    "chunk": "Fragmento",
+    "page": "Pág."
+  },
+  "ingestion": {
+    "title": "Ingesta de documentos",
+    "subtitle": "Gestiona la sincronización del índice vectorial.",
+    "serviceStatus": "Estado del servicio ChatIA",
+    "serviceStatusDesc": "Comprueba si el servicio RAG está operativo.",
+    "syncTitle": "Sincronización manual",
+    "syncDesc": "Lanza una sincronización completa de los documentos con el índice vectorial.",
+    "syncButton": "Sincronizar ahora",
+    "syncing": "Sincronizando...",
+    "syncSuccess": "Sincronización completada.",
+    "confirmSync": "¿Iniciar sincronización del índice?"
+  },
+  "faqs": {
+    "title": "Preguntas frecuentes",
+    "subtitle": "Gestiona las respuestas a preguntas habituales.",
+    "headerTitle": "Título de la página",
+    "headerDesc": "Descripción introductoria",
+    "saveHeader": "Guardar cabecera",
+    "saving": "Guardando...",
+    "question": "Pregunta",
+    "questionPlaceholder": "¿Cuál es la pregunta?",
+    "answer": "Respuesta",
+    "answerPlaceholder": "Escribe la respuesta completa...",
+    "addNew": "Nueva FAQ",
+    "confirmDelete": "¿Eliminar esta FAQ?",
+    "empty": "No hay preguntas frecuentes configuradas."
+  }
+}

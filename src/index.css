@@ -1,0 +1,62 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+@layer base {
+  :root {
+    --color-bg: theme('colors.white');
+    --color-surface: theme('colors.slate.50');
+    --color-text: theme('colors.slate.900');
+    --color-muted: theme('colors.slate.500');
+    --color-border: theme('colors.slate.200');
+  }
+
+  .dark {
+    --color-bg: theme('colors.slate.950');
+    --color-surface: theme('colors.slate.900');
+    --color-text: theme('colors.slate.100');
+    --color-muted: theme('colors.slate.400');
+    --color-border: theme('colors.slate.700');
+  }
+
+  html {
+    @apply scroll-smooth;
+  }
+
+  body {
+    @apply bg-white text-slate-900 font-sans antialiased transition-colors duration-200;
+    @apply dark:bg-slate-950 dark:text-slate-100;
+  }
+
+  *,
+  *::before,
+  *::after {
+    @apply box-border;
+  }
+
+  h1, h2, h3, h4, h5, h6 {
+    @apply font-semibold leading-tight;
+  }
+
+  a {
+    @apply transition-colors duration-150;
+  }
+
+  :focus-visible {
+    @apply outline-none ring-2 ring-indigo-500 ring-offset-2;
+  }
+}
+
+@layer components {
+  .page-container {
+    @apply mx-auto max-w-6xl px-4 sm:px-6 lg:px-8;
+  }
+
+  .section-title {
+    @apply text-2xl font-semibold text-slate-800 dark:text-slate-100;
+  }
+
+  .section-subtitle {
+    @apply text-slate-500 dark:text-slate-400 mt-1;
+  }
+}
