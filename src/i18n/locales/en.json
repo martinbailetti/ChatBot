@@ -129,7 +129,8 @@
     "delete": "Delete",
     "actions": "Actions",
     "refresh": "Refresh",
-    "search": "Search..."
+    "search": "Search...",
+    "clearFilters": "Clear filters"
   },
   "lang": {
     "es": "Español",
@@ -260,9 +261,34 @@
     "empty": "No conversations found."
   },
   "messages": {
+    "title": "Messages",
+    "subtitle": "{{count}} messages found.",
     "noConversation": "No conversation specified.",
-    "empty": "This conversation has no messages.",
-    "notFound": "No info"
+    "empty": "No messages to show.",
+    "allConversations": "All conversations",
+    "allUsers": "All users",
+    "allRoles": "All roles",
+    "colId": "ID",
+    "colRole": "Role",
+    "colContent": "Content",
+    "colConversation": "Conversation",
+    "colUser": "User",
+    "colFound": "Status",
+    "colDate": "Date",
+    "roleUser": "User",
+    "roleAssistant": "Assistant",
+    "found": "Answered",
+    "notFound": "No info",
+    "detailTitle": "Message detail",
+    "fieldRole": "Role",
+    "fieldConversation": "Conversation",
+    "fieldUser": "User",
+    "fieldDate": "Date",
+    "fieldFound": "Status",
+    "fieldModel": "Model",
+    "fieldTokens": "Tokens",
+    "fieldContent": "Content",
+    "fieldSources": "Sources"
   },
   "documents": {
     "title": "Indexed documents",

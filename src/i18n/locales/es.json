@@ -241,7 +241,8 @@
     "delete": "Eliminar",
     "actions": "Acciones",
     "refresh": "Actualizar",
-    "search": "Buscar..."
+    "search": "Buscar...",
+    "clearFilters": "Quitar filtros"
   },
   "nav": {
     "home": "Inicio",
@@ -273,9 +274,34 @@
     "empty": "No hay conversaciones registradas."
   },
   "messages": {
+    "title": "Mensajes",
+    "subtitle": "{{count}} mensajes encontrados.",
     "noConversation": "No se ha especificado ninguna conversación.",
-    "empty": "Esta conversación no tiene mensajes.",
-    "notFound": "Sin información"
+    "empty": "No hay mensajes que mostrar.",
+    "allConversations": "Todas las conversaciones",
+    "allUsers": "Todos los usuarios",
+    "allRoles": "Todos los roles",
+    "colId": "ID",
+    "colRole": "Rol",
+    "colContent": "Contenido",
+    "colConversation": "Conversación",
+    "colUser": "Usuario",
+    "colFound": "Estado",
+    "colDate": "Fecha",
+    "roleUser": "Usuario",
+    "roleAssistant": "Asistente",
+    "found": "Con respuesta",
+    "notFound": "Sin información",
+    "detailTitle": "Detalle del mensaje",
+    "fieldRole": "Rol",
+    "fieldConversation": "Conversación",
+    "fieldUser": "Usuario",
+    "fieldDate": "Fecha",
+    "fieldFound": "Estado",
+    "fieldModel": "Modelo",
+    "fieldTokens": "Tokens",
+    "fieldContent": "Contenido",
+    "fieldSources": "Fuentes"
   },
   "documents": {
     "title": "Documentos indexados",

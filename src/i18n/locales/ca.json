@@ -129,7 +129,8 @@
     "delete": "Eliminar",
     "actions": "Accions",
     "refresh": "Actualitzar",
-    "search": "Cercar..."
+    "search": "Cerca...",
+    "clearFilters": "Treure filtres"
   },
   "lang": {
     "es": "Español",
@@ -260,9 +261,34 @@
     "empty": "No hi ha converses registrades."
   },
   "messages": {
+    "title": "Missatges",
+    "subtitle": "{{count}} missatges trobats.",
     "noConversation": "No s'ha especificat cap conversa.",
-    "empty": "Aquesta conversa no té missatges.",
-    "notFound": "Sense informació"
+    "empty": "No hi ha missatges per mostrar.",
+    "allConversations": "Totes les converses",
+    "allUsers": "Tots els usuaris",
+    "allRoles": "Tots els rols",
+    "colId": "ID",
+    "colRole": "Rol",
+    "colContent": "Contingut",
+    "colConversation": "Conversa",
+    "colUser": "Usuari",
+    "colFound": "Estat",
+    "colDate": "Data",
+    "roleUser": "Usuari",
+    "roleAssistant": "Assistent",
+    "found": "Amb resposta",
+    "notFound": "Sense informació",
+    "detailTitle": "Detall del missatge",
+    "fieldRole": "Rol",
+    "fieldConversation": "Conversa",
+    "fieldUser": "Usuari",
+    "fieldDate": "Data",
+    "fieldFound": "Estat",
+    "fieldModel": "Model",
+    "fieldTokens": "Tokens",
+    "fieldContent": "Contingut",
+    "fieldSources": "Fonts"
   },
   "documents": {
     "title": "Documents indexats",
