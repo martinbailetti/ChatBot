@@ -300,6 +300,8 @@
     "fieldFound": "Estado",
     "fieldModel": "Modelo",
     "fieldTokens": "Tokens",
+    "fieldStatus": "Estado interno",
+    "fieldStatusInfo": "Info estado",
     "fieldContent": "Contenido",
     "fieldSources": "Fuentes"
   },

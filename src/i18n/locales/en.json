@@ -287,6 +287,8 @@
     "fieldFound": "Status",
     "fieldModel": "Model",
     "fieldTokens": "Tokens",
+    "fieldStatus": "Internal status",
+    "fieldStatusInfo": "Status info",
     "fieldContent": "Content",
     "fieldSources": "Sources"
   },

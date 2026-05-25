@@ -97,10 +97,28 @@ function DetailPanel({ msg, onClose }) {
             </>
           )}
 
-          {msg.tokens_used != null && (
+          {(msg.prompt_token_count != null || msg.total_token_count != null) && (
             <>
               <dt className="text-slate-500 dark:text-slate-400">{t('messages.fieldTokens')}</dt>
-              <dd className="text-slate-900 dark:text-slate-100">{msg.tokens_used}</dd>
+              <dd className="text-xs text-slate-900 dark:text-slate-100 space-x-2">
+                {msg.prompt_token_count != null && <span title="prompt">↑{msg.prompt_token_count}</span>}
+                {msg.candidates_token_count != null && <span title="candidatos">↓{msg.candidates_token_count}</span>}
+                {msg.total_token_count != null && <span className="font-semibold">={msg.total_token_count}</span>}
+              </dd>
+            </>
+          )}
+
+          {msg.status && msg.status !== 'DEFAULT' && (
+            <>
+              <dt className="text-slate-500 dark:text-slate-400">{t('messages.fieldStatus')}</dt>
+              <dd className="font-mono text-xs text-slate-900 dark:text-slate-100">{msg.status}</dd>
+            </>
+          )}
+
+          {msg.status_info && (
+            <>
+              <dt className="text-slate-500 dark:text-slate-400">{t('messages.fieldStatusInfo')}</dt>
+              <dd className="text-xs text-slate-700 dark:text-slate-300">{msg.status_info}</dd>
             </>
           )}
         </dl>
