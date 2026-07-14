@@ -1,7 +1,7 @@
 import { useState, useEffect, useRef } from 'react'
 import { NavLink, Link, useLocation } from 'react-router-dom'
 import { useTranslation } from 'react-i18next'
-import { Menu, X, Sun, Moon, Globe, ChevronDown, LogIn, LogOut, Users, MessageSquare, FileText, Upload, HelpCircle, MessagesSquare } from 'lucide-react'
+import { Menu, X, Sun, Moon, Globe, ChevronDown, LogIn, LogOut, Users, MessageSquare, FileText, Upload, HelpCircle, MessagesSquare, Settings, Server, Database } from 'lucide-react'
 import { cn } from '@/utils/cn'
 import { useDarkMode } from '@/hooks/useDarkMode'
 import { useLanguage } from '@/hooks/useLanguage'
@@ -40,11 +40,19 @@ const ADMIN_NAV_LINKS = [
       { key: 'nav.faqs',           to: '/faqs',       icon: HelpCircle },
     ],
   },
+  {
+    label: 'Ajustes',
+    dropdown: true,
+    icon: Settings,
+    items: [
+      { label: 'RAG Server', to: '/ajustes/rag-server', icon: Server },
+      { label: 'API Server', to: '/ajustes/api-server', icon: Database },
+    ],
+  },
   { key: 'users.title', to: '/usuarios', icon: Users },
 ]
 
 function NavDropdown({ label, icon: Icon, items, linkClass }) {
-  const { t }     = useTranslation()
   const [open, setOpen] = useState(false)
   const ref = useRef(null)
 
@@ -89,7 +97,7 @@ function NavDropdown({ label, icon: Icon, items, linkClass }) {
               }
             >
               {ItemIcon && <ItemIcon className="h-4 w-4 shrink-0" aria-hidden="true" />}
-              {t(key)}
+              {key ?? label}
             </NavLink>
           ))}
         </div>
@@ -353,10 +361,13 @@ export default function Navbar() {
           {navLinks.map((item) =>
             item.dropdown ? (
               <NavDropdown
-                key={item.key}
-                label={t(item.key)}
+                key={item.key ?? item.label}
+                label={item.label ?? t(item.key)}
                 icon={item.icon}
-                items={item.items}
+                items={(item.items ?? []).map((subItem) => ({
+                  ...subItem,
+                  key: subItem.label ?? t(subItem.key),
+                }))}
                 linkClass={linkClass}
               />
             ) : (
@@ -411,11 +422,11 @@ export default function Navbar() {
           <nav aria-label="Navegación móvil" className="flex flex-col gap-1 py-2">
             {navLinks.map((item) =>
               item.dropdown ? (
-                <div key={item.key}>
+                <div key={item.key ?? item.label}>
                   <span className="block px-4 py-1 text-xs font-semibold uppercase tracking-wider text-slate-400 dark:text-slate-500">
-                    {t(item.key)}
+                    {item.label ?? t(item.key)}
                   </span>
-                  {item.items.map(({ key, to, icon: Icon }) => (
+                  {item.items.map(({ key, label, to, icon: Icon }) => (
                     <NavLink
                       key={to}
                       to={to}
@@ -423,7 +434,7 @@ export default function Navbar() {
                       end={to === '/'}
                     >
                       {Icon && <Icon className="mr-2 inline h-4 w-4" aria-hidden="true" />}
-                      {t(key)}
+                      {label ?? t(key)}
                     </NavLink>
                   ))}
                 </div>

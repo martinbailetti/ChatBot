@@ -22,6 +22,8 @@ const DocumentsPage      = lazy(() => import('@/pages/DocumentsPage'))
 const DocumentDetailPage = lazy(() => import('@/pages/DocumentDetailPage'))
 const IngestionPage      = lazy(() => import('@/pages/IngestionPage'))
 const FaqsPage           = lazy(() => import('@/pages/FaqsPage'))
+const RagServerSettingsPage = lazy(() => import('@/pages/RagServerSettingsPage'))
+const ApiServerSettingsPage = lazy(() => import('@/pages/ApiServerSettingsPage'))
 
 function PageLoader() {
   return (
@@ -91,6 +93,8 @@ export default function App() {
           <Route path="/documentos/detalle" element={<ProtectedRoute><DocumentDetailPage /></ProtectedRoute>} />
           <Route path="/ingestion"      element={<ProtectedRoute adminOnly><IngestionPage /></ProtectedRoute>} />
           <Route path="/faqs"           element={<ProtectedRoute adminOnly><FaqsPage /></ProtectedRoute>} />
+          <Route path="/ajustes/rag-server" element={<ProtectedRoute adminOnly><RagServerSettingsPage /></ProtectedRoute>} />
+          <Route path="/ajustes/api-server" element={<ProtectedRoute adminOnly><ApiServerSettingsPage /></ProtectedRoute>} />
         </Routes>
       </Layout>
     </BrowserRouter>
