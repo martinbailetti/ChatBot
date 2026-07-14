@@ -25,7 +25,7 @@ const useAppStore = create(
       closeMobileMenu: () => set({ mobileMenuOpen: false }),
     }),
     {
-      name: 'nexus-app-store',
+      name: 'app-store',
       partialize: (state) => ({
         darkMode: state.darkMode,
         language: state.language,

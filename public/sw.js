@@ -1,7 +1,7 @@
-// Service Worker básico para Nexus Demo
+// Service Worker básico para Chatbot Demo
 // Estrategia: cache-first para assets estáticos, network-first para navegación
 
-const CACHE_NAME = 'nexus-demo-v1'
+const CACHE_NAME = 'chatbot-demo-v1'
 
 const PRECACHE_ASSETS = [
   '/',

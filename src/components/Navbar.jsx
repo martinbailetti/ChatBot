@@ -346,13 +346,13 @@ export default function Navbar() {
         <NavLink
           to="/"
           className="flex items-center gap-2 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-indigo-500 rounded-md"
-          aria-label="Nexus Demo — Inicio"
+          aria-label="Chatbot Demo — Inicio"
         >
           <span className="flex h-7 w-7 items-center justify-center rounded-md bg-indigo-600 text-white text-xs font-bold select-none">
             N
           </span>
           <span className="font-semibold text-slate-900 dark:text-slate-100">
-            Nexus<span className="font-normal text-slate-400 dark:text-slate-500"> Demo</span>
+            Chatbot<span className="font-normal text-slate-400 dark:text-slate-500"> Demo</span>
           </span>
         </NavLink>
 

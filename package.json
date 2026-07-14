@@ -1,5 +1,5 @@
 {
-  "name": "nexus-demo",
+  "name": "chatbot-demo",
   "version": "1.0.0",
   "description": "Demo SPA empresarial moderna con React 18, Vite 5 y Tailwind CSS 3",
   "type": "module",

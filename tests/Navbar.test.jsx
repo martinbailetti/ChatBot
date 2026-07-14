@@ -34,9 +34,9 @@ describe('Navbar', () => {
     i18n.changeLanguage('es')
   })
 
-  it('muestra el logo "Nexus"', () => {
+  it('muestra el logo "Chatbot"', () => {
     renderNavbar()
-    expect(screen.getByText('Nexus')).toBeInTheDocument()
+    expect(screen.getByText('Chatbot')).toBeInTheDocument()
   })
 
   it('muestra el enlace Inicio', () => {

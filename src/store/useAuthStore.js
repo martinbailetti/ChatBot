@@ -3,7 +3,7 @@ import { persist } from 'zustand/middleware'
 
 /**
  * Store de autenticación local.
- * Persiste token y datos de usuario en localStorage bajo la clave 'nexus-auth'.
+ * Persiste token y datos de usuario en localStorage bajo la clave 'chatbot-auth'.
  */
 const useAuthStore = create(
   persist(
@@ -32,7 +32,7 @@ const useAuthStore = create(
       setHasHydrated: (value) => set({ hasHydrated: value }),
     }),
     {
-      name: 'nexus-auth',
+      name: 'chatbot-auth',
       partialize: (state) => ({
         token: state.token,
         expiresAt: state.expiresAt,

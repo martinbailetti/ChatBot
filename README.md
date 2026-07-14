@@ -1,4 +1,4 @@
-# Nexus Demo
+# Chatbot Demo
 
 Demo SPA empresarial moderna construida con React 18, Vite 5 y Tailwind CSS 3.
 
