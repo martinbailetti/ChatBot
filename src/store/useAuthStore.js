@@ -8,6 +8,8 @@ import { persist } from 'zustand/middleware'
 const useAuthStore = create(
   persist(
     (set) => ({
+      /** Indica si Zustand ya rehidrató el estado persistido */
+      hasHydrated: false,
       /** @type {string|null} */
       token: null,
       /** @type {string|null} ISO-8601 */
@@ -25,6 +27,9 @@ const useAuthStore = create(
 
       /** Actualiza solo los datos del usuario (p.ej. tras GET /api/auth/me) */
       setUser: (user) => set({ user }),
+
+      /** Marca que la rehidratación del store finalizó */
+      setHasHydrated: (value) => set({ hasHydrated: value }),
     }),
     {
       name: 'nexus-auth',
@@ -33,6 +38,9 @@ const useAuthStore = create(
         expiresAt: state.expiresAt,
         user: state.user,
       }),
+      onRehydrateStorage: () => (state) => {
+        state?.setHasHydrated(true)
+      },
     }
   )
 )

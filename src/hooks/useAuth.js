@@ -16,7 +16,7 @@ import { apiFetch, authFetch } from '@/utils/apiFetch'
  *  - refreshMe()      → recarga los datos del usuario desde GET /api/auth/me
  */
 export function useAuth() {
-  const { token, expiresAt, user, setAuth, clearAuth, setUser } = useAuthStore()
+  const { token, expiresAt, user, hasHydrated, setAuth, clearAuth, setUser } = useAuthStore()
   const navigate = useNavigate()
 
   const isTokenExpired = useCallback(() => {
@@ -77,15 +77,15 @@ export function useAuth() {
         setUser(res.data)
       }
     } catch (_) {
-      // Token expirado en servidor → limpiar sesión
-      clearAuth()
-      navigate('/login')
+      // authFetch ya gestiona 401. Para errores transitorios (red/5xx),
+      // conservar sesión local y permitir reintento.
     }
-  }, [token, setUser, clearAuth, navigate])
+  }, [token, setUser])
 
   const isAdmin = user?.type === 'ADMIN'
 
   return {
+    isHydrated: hasHydrated,
     isAuthenticated,
     isAdmin,
     isTokenExpired: isTokenExpired(),
