@@ -1,6 +1,6 @@
-import { useState, useEffect, useCallback } from 'react'
+import { useState, useEffect, useCallback, useMemo } from 'react'
 import { useTranslation } from 'react-i18next'
-import { UserPlus, RefreshCw, X, Check, Users, AlertCircle } from 'lucide-react'
+import { UserPlus, RefreshCw, X, Check, Users, AlertCircle, Pencil, ChevronDown, ChevronRight } from 'lucide-react'
 import { useAuth } from '@/hooks/useAuth'
 import { authFetch } from '@/utils/apiFetch'
 import { Button, Input, Badge } from '@/components/ui'
@@ -14,6 +14,13 @@ const EMPTY_FORM = {
   last_name: '',
   password: '',
   password_confirm: '',
+  type: 'DEFAULT',
+}
+
+const EMPTY_EDIT_FORM = {
+  email: '',
+  first_name: '',
+  last_name: '',
   type: 'DEFAULT',
 }
 
@@ -40,13 +47,149 @@ function validate(fields, t) {
   return errors
 }
 
+function validateEdit(fields, t) {
+  const errors = {}
+  if (!fields.email.trim()) {
+    errors.email = t('users.errors.emailRequired')
+  } else if (!EMAIL_REGEX.test(fields.email)) {
+    errors.email = t('users.errors.emailInvalid')
+  }
+  if (!fields.first_name.trim()) errors.first_name = t('users.errors.firstNameRequired')
+  if (!fields.last_name.trim())  errors.last_name  = t('users.errors.lastNameRequired')
+  if (!['ADMIN', 'DEFAULT'].includes(fields.type)) {
+    errors.type = t('users.errors.typeInvalid')
+  }
+  return errors
+}
+
+function normalizeTreeNode(node) {
+  if (!node || typeof node !== 'object') return null
+  const path = typeof node.path === 'string' ? node.path : ''
+  const name = typeof node.name === 'string' && node.name.trim() ? node.name : path
+  const children = Array.isArray(node.children)
+    ? node.children.map(normalizeTreeNode).filter(Boolean)
+    : []
+  return { name, path, children }
+}
+
+function PathTreeSelector({ tree, selectedPaths, onChange, loading, error }) {
+  const { t } = useTranslation()
+  const selectedSet = useMemo(() => new Set(selectedPaths), [selectedPaths])
+  const [expanded, setExpanded] = useState(() => new Set(tree?.path ? [tree.path] : []))
+
+  useEffect(() => {
+    setExpanded(new Set(tree?.path ? [tree.path] : []))
+  }, [tree?.path])
+
+  function handleToggleExpand(path) {
+    if (!path) return
+    setExpanded((prev) => {
+      const next = new Set(prev)
+      if (next.has(path)) next.delete(path)
+      else next.add(path)
+      return next
+    })
+  }
+
+  function handleToggleNode(node, checked) {
+    const next = new Set(selectedSet)
+    if (checked) next.add(node.path)
+    else next.delete(node.path)
+    onChange(Array.from(next).sort())
+  }
+
+  function renderNode(node, depth = 0) {
+    const hasChildren = Array.isArray(node.children) && node.children.length > 0
+    const isExpanded = expanded.has(node.path)
+    const isChecked = selectedSet.has(node.path)
+    const inputId = `user-path-${node.path.replace(/[^a-zA-Z0-9_-]/g, '_')}`
+
+    return (
+      <div key={node.path || `${node.name}-${depth}`} className="select-none">
+        <div
+          className="flex items-center gap-2 rounded-md px-2 py-1.5 hover:bg-slate-100 dark:hover:bg-slate-800"
+          style={{ paddingLeft: `${8 + depth * 16}px` }}
+        >
+          <button
+            type="button"
+            onClick={() => hasChildren && handleToggleExpand(node.path)}
+            className="flex h-5 w-5 items-center justify-center rounded text-slate-500 hover:bg-slate-200 dark:text-slate-400 dark:hover:bg-slate-700"
+            aria-label={hasChildren ? t('common.actions') : t('common.loading')}
+            disabled={!hasChildren}
+          >
+            {hasChildren ? (
+              isExpanded
+                ? <ChevronDown className="h-4 w-4" aria-hidden="true" />
+                : <ChevronRight className="h-4 w-4" aria-hidden="true" />
+            ) : null}
+          </button>
+
+          <input
+            id={inputId}
+            type="checkbox"
+            checked={isChecked}
+            onChange={(e) => handleToggleNode(node, e.target.checked)}
+            className="h-4 w-4 rounded border-slate-300 text-indigo-600 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-800"
+          />
+
+          <label htmlFor={inputId} className="text-sm text-slate-700 dark:text-slate-200 cursor-pointer">
+            {node.name}
+          </label>
+        </div>
+
+        {hasChildren && isExpanded && (
+          <div>
+            {node.children.map((child) => renderNode(child, depth + 1))}
+          </div>
+        )}
+      </div>
+    )
+  }
+
+  return (
+    <div className="space-y-2">
+      <div className="flex items-center justify-between">
+        <span className="text-sm font-medium text-slate-700 dark:text-slate-300">
+          {t('users.pathsTitle')}
+        </span>
+        <span className="text-xs text-slate-500 dark:text-slate-400">
+          {t('users.pathsSelected', { count: selectedPaths.length })}
+        </span>
+      </div>
+
+      <p className="text-xs text-slate-500 dark:text-slate-400">
+        {t('users.pathsHelp')}
+      </p>
+
+      {loading ? (
+        <div className="rounded-md border border-slate-200 px-3 py-4 text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
+          {t('users.pathsLoading')}
+        </div>
+      ) : error ? (
+        <div className="rounded-md border border-amber-200 bg-amber-50 px-3 py-4 text-sm text-amber-700 dark:border-amber-800 dark:bg-amber-950 dark:text-amber-300">
+          {t('users.pathsError')}
+        </div>
+      ) : !tree ? (
+        <div className="rounded-md border border-slate-200 px-3 py-4 text-sm text-slate-500 dark:border-slate-700 dark:text-slate-400">
+          {t('users.pathsEmpty')}
+        </div>
+      ) : (
+        <div className="max-h-64 overflow-auto rounded-md border border-slate-200 bg-white p-1 dark:border-slate-700 dark:bg-slate-900">
+          {renderNode(tree)}
+        </div>
+      )}
+    </div>
+  )
+}
+
 // ── Componente de fila de tabla ───────────────────────────────────────────────
-function UserRow({ user }) {
+function UserRow({ user, onEdit }) {
   const { t } = useTranslation()
   const date = user.created_at
     ? new Date(user.created_at).toLocaleDateString()
     : '—'
   const isAdmin = user.type === 'ADMIN'
+  const pathCount = Array.isArray(user.paths) ? user.paths.length : 0
 
   return (
     <tr className="border-b border-slate-100 last:border-0 dark:border-slate-800 hover:bg-slate-50 dark:hover:bg-slate-800/50 transition-colors">
@@ -58,6 +201,9 @@ function UserRow({ user }) {
           {user.first_name} {user.last_name}
         </div>
         <div className="text-xs text-slate-500 dark:text-slate-400">{user.email}</div>
+        <div className="text-xs text-slate-400 dark:text-slate-500 mt-0.5">
+          {t('users.pathsSelected', { count: pathCount })}
+        </div>
       </td>
       <td className="px-4 py-3">
         <span className={cn(
@@ -72,14 +218,21 @@ function UserRow({ user }) {
       <td className="px-4 py-3 text-right text-xs text-slate-400 dark:text-slate-500">
         {date}
       </td>
+      <td className="px-4 py-3 text-right">
+        <Button type="button" variant="ghost" size="sm" onClick={() => onEdit(user)}>
+          <Pencil className="mr-1.5 h-4 w-4" aria-hidden="true" />
+          {t('common.edit')}
+        </Button>
+      </td>
     </tr>
   )
 }
 
 // ── Formulario de nuevo usuario ───────────────────────────────────────────────
-function NewUserForm({ onCreated, onCancel }) {
+function NewUserForm({ onCreated, onCancel, pathTree, pathTreeLoading, pathTreeError }) {
   const { t } = useTranslation()
   const [fields, setFields]   = useState(EMPTY_FORM)
+  const [selectedPaths, setSelectedPaths] = useState([])
   const [errors, setErrors]   = useState({})
   const [apiError, setApiError] = useState(null)
   const [loading, setLoading] = useState(false)
@@ -112,6 +265,7 @@ function NewUserForm({ onCreated, onCancel }) {
           last_name:  fields.last_name.trim(),
           password:   fields.password,
           type:       fields.type,
+          paths:      selectedPaths,
         }),
       })
 
@@ -209,6 +363,14 @@ function NewUserForm({ onCreated, onCancel }) {
         {errors.type && <span className={errorClass}>{errors.type}</span>}
       </div>
 
+      <PathTreeSelector
+        tree={pathTree}
+        selectedPaths={selectedPaths}
+        onChange={setSelectedPaths}
+        loading={pathTreeLoading}
+        error={pathTreeError}
+      />
+
       <div className="flex justify-end gap-2 pt-2">
         <Button type="button" variant="ghost" onClick={onCancel} disabled={loading}>
           {t('common.cancel')}
@@ -216,6 +378,143 @@ function NewUserForm({ onCreated, onCancel }) {
         <Button type="submit" variant="primary" disabled={loading}>
           <UserPlus className="mr-1.5 h-4 w-4" aria-hidden="true" />
           {loading ? t('users.creating') : t('users.createBtn')}
+        </Button>
+      </div>
+    </form>
+  )
+}
+
+function EditUserForm({ user, onSaved, onCancel, pathTree, pathTreeLoading, pathTreeError }) {
+  const { t } = useTranslation()
+  const [fields, setFields] = useState(EMPTY_EDIT_FORM)
+  const [selectedPaths, setSelectedPaths] = useState([])
+  const [errors, setErrors] = useState({})
+  const [apiError, setApiError] = useState(null)
+  const [loading, setLoading] = useState(false)
+
+  useEffect(() => {
+    if (!user) return
+    setFields({
+      email: user.email ?? '',
+      first_name: user.first_name ?? '',
+      last_name: user.last_name ?? '',
+      type: user.type ?? 'DEFAULT',
+    })
+    setSelectedPaths(Array.isArray(user.paths) ? user.paths : [])
+    setErrors({})
+    setApiError(null)
+  }, [user])
+
+  function handleChange(e) {
+    const { name, value } = e.target
+    setFields((prev) => ({ ...prev, [name]: value }))
+    if (errors[name]) setErrors((prev) => ({ ...prev, [name]: undefined }))
+    setApiError(null)
+  }
+
+  async function handleSubmit(e) {
+    e.preventDefault()
+    const validationErrors = validateEdit(fields, t)
+    if (Object.keys(validationErrors).length > 0) {
+      setErrors(validationErrors)
+      return
+    }
+
+    setLoading(true)
+    setApiError(null)
+
+    try {
+      const res = await authFetch(`/api/users/${user.Id}`, {
+        method: 'PUT',
+        body: JSON.stringify({
+          email: fields.email.trim(),
+          first_name: fields.first_name.trim(),
+          last_name: fields.last_name.trim(),
+          type: fields.type,
+          paths: selectedPaths,
+        }),
+      })
+
+      if (res.success) {
+        onSaved(res.data)
+      } else {
+        setApiError(res.message ?? t('users.updateError'))
+      }
+    } catch (err) {
+      let message = t('users.updateError')
+      try {
+        const parsed = JSON.parse(err.message.replace(/^API error \d+: /, ''))
+        message = parsed.message ?? message
+      } catch (_) {}
+      setApiError(message)
+    } finally {
+      setLoading(false)
+    }
+  }
+
+  const fieldClass = 'flex flex-col gap-1'
+  const labelClass = 'text-sm font-medium text-slate-700 dark:text-slate-300'
+  const errorClass = 'text-xs text-red-600 dark:text-red-400 mt-0.5'
+
+  return (
+    <form onSubmit={handleSubmit} noValidate className="space-y-4">
+      {apiError && (
+        <div role="alert" className="flex items-start gap-2 rounded-md border border-red-200 bg-red-50 px-4 py-3 text-sm text-red-700 dark:border-red-800 dark:bg-red-950 dark:text-red-400">
+          <AlertCircle className="mt-0.5 h-4 w-4 shrink-0" aria-hidden="true" />
+          {apiError}
+        </div>
+      )}
+
+      <div className="grid gap-4 sm:grid-cols-2">
+        <div className={fieldClass}>
+          <label htmlFor="edit_first_name" className={labelClass}>{t('users.firstName')}</label>
+          <Input id="edit_first_name" name="first_name" value={fields.first_name} onChange={handleChange} disabled={loading} placeholder={t('users.firstNamePlaceholder')} />
+          {errors.first_name && <span className={errorClass}>{errors.first_name}</span>}
+        </div>
+        <div className={fieldClass}>
+          <label htmlFor="edit_last_name" className={labelClass}>{t('users.lastName')}</label>
+          <Input id="edit_last_name" name="last_name" value={fields.last_name} onChange={handleChange} disabled={loading} placeholder={t('users.lastNamePlaceholder')} />
+          {errors.last_name && <span className={errorClass}>{errors.last_name}</span>}
+        </div>
+      </div>
+
+      <div className={fieldClass}>
+        <label htmlFor="edit_email" className={labelClass}>{t('auth.email')}</label>
+        <Input id="edit_email" name="email" type="email" autoComplete="off" value={fields.email} onChange={handleChange} disabled={loading} placeholder="usuario@ejemplo.com" />
+        {errors.email && <span className={errorClass}>{errors.email}</span>}
+      </div>
+
+      <div className={fieldClass}>
+        <label htmlFor="edit_user_type" className={labelClass}>{t('users.type')}</label>
+        <select
+          id="edit_user_type"
+          name="type"
+          value={fields.type}
+          onChange={handleChange}
+          disabled={loading}
+          className="rounded-md border border-slate-300 bg-white px-3 py-2 text-sm text-slate-900 shadow-sm focus:border-indigo-500 focus:outline-none focus:ring-1 focus:ring-indigo-500 dark:border-slate-600 dark:bg-slate-800 dark:text-slate-100"
+        >
+          <option value="DEFAULT">{t('users.typeDefault')}</option>
+          <option value="ADMIN">{t('users.typeAdmin')}</option>
+        </select>
+        {errors.type && <span className={errorClass}>{errors.type}</span>}
+      </div>
+
+      <PathTreeSelector
+        tree={pathTree}
+        selectedPaths={selectedPaths}
+        onChange={setSelectedPaths}
+        loading={pathTreeLoading}
+        error={pathTreeError}
+      />
+
+      <div className="flex justify-end gap-2 pt-2">
+        <Button type="button" variant="ghost" onClick={onCancel} disabled={loading}>
+          {t('common.cancel')}
+        </Button>
+        <Button type="submit" variant="primary" disabled={loading}>
+          <Pencil className="mr-1.5 h-4 w-4" aria-hidden="true" />
+          {loading ? t('users.editing') : t('users.editBtn')}
         </Button>
       </div>
     </form>
@@ -231,6 +530,10 @@ export default function UsersPage() {
   const [loading, setLoading] = useState(true)
   const [fetchError, setFetchError] = useState(null)
   const [showForm, setShowForm] = useState(false)
+  const [editingUser, setEditingUser] = useState(null)
+  const [pathTree, setPathTree] = useState(null)
+  const [pathTreeLoading, setPathTreeLoading] = useState(true)
+  const [pathTreeError, setPathTreeError] = useState(null)
 
   const loadUsers = useCallback(async () => {
     setLoading(true)
@@ -249,13 +552,46 @@ export default function UsersPage() {
     }
   }, [t])
 
-  useEffect(() => {
-    if (isAuthenticated) loadUsers()
-  }, [isAuthenticated, loadUsers])
+  const loadPathTree = useCallback(async () => {
+    setPathTreeLoading(true)
+    setPathTreeError(null)
+    try {
+      const res = await authFetch('/api/documents/tree')
+      if (res.success) {
+        setPathTree(normalizeTreeNode(res.data))
+      } else {
+        setPathTree(null)
+        setPathTreeError(res.message ?? t('users.pathsError'))
+      }
+    } catch (err) {
+      setPathTree(null)
+      setPathTreeError(t('users.pathsError'))
+    } finally {
+      setPathTreeLoading(false)
+    }
+  }, [t])
 
-  function handleCreated(newUser) {
+  useEffect(() => {
+    if (isAuthenticated) {
+      loadUsers()
+      loadPathTree()
+    }
+  }, [isAuthenticated, loadUsers, loadPathTree])
+
+  function handleCreated() {
     setShowForm(false)
+    setEditingUser(null)
     loadUsers()
+  }
+
+  function handleUpdated() {
+    setEditingUser(null)
+    loadUsers()
+  }
+
+  function handleStartEdit(user) {
+    setEditingUser(user)
+    setShowForm(false)
   }
 
   return (
@@ -283,7 +619,10 @@ export default function UsersPage() {
           <Button
             variant="primary"
             size="sm"
-            onClick={() => setShowForm((v) => !v)}
+            onClick={() => {
+              setShowForm((v) => !v)
+              setEditingUser(null)
+            }}
           >
             {showForm
               ? <><X className="mr-1.5 h-4 w-4" aria-hidden="true" />{t('common.cancel')}</>
@@ -302,6 +641,25 @@ export default function UsersPage() {
           <NewUserForm
             onCreated={handleCreated}
             onCancel={() => setShowForm(false)}
+            pathTree={pathTree}
+            pathTreeLoading={pathTreeLoading}
+            pathTreeError={pathTreeError}
+          />
+        </div>
+      )}
+
+      {editingUser && (
+        <div className="mb-6 rounded-xl border border-slate-200 bg-white p-6 shadow-sm dark:border-slate-700 dark:bg-slate-900">
+          <h2 className="mb-4 text-base font-semibold text-slate-900 dark:text-slate-100">
+            {t('users.editUser')}: {editingUser.first_name} {editingUser.last_name}
+          </h2>
+          <EditUserForm
+            user={editingUser}
+            onSaved={handleUpdated}
+            onCancel={() => setEditingUser(null)}
+            pathTree={pathTree}
+            pathTreeLoading={pathTreeLoading}
+            pathTreeError={pathTreeError}
           />
         </div>
       )}
@@ -350,11 +708,14 @@ export default function UsersPage() {
                   <th className="px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
                     {t('users.createdAt')}
                   </th>
+                  <th className="px-4 py-2.5 text-right text-xs font-semibold uppercase tracking-wide text-slate-500 dark:text-slate-400">
+                    {t('common.actions')}
+                  </th>
                 </tr>
               </thead>
               <tbody>
                 {users.map((user) => (
-                  <UserRow key={user.Id} user={user} />
+                  <UserRow key={user.Id} user={user} onEdit={handleStartEdit} />
                 ))}
               </tbody>
             </table>

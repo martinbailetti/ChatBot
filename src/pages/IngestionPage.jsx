@@ -26,6 +26,8 @@ export default function IngestionPage() {
 
   const [status, setStatus]     = useState(null)
   const [loadingStatus, setLoadingStatus] = useState(true)
+  const [pending, setPending]   = useState(null)
+  const [loadingPending, setLoadingPending] = useState(false)
   const [syncing, setSyncing]   = useState(false)
   const [syncResult, setSyncResult] = useState(null)
   const [error, setError]       = useState(null)
@@ -43,7 +45,27 @@ export default function IngestionPage() {
     }
   }, [])
 
-  useEffect(() => { loadStatus() }, [loadStatus])
+  const loadPending = useCallback(async () => {
+    if (!isAdmin) {
+      setPending(null)
+      return
+    }
+    setLoadingPending(true)
+    setError(null)
+    try {
+      const res = await authFetch('/api/ingestion/pending')
+      setPending(res.data ?? null)
+    } catch (err) {
+      setError(err.message)
+    } finally {
+      setLoadingPending(false)
+    }
+  }, [isAdmin])
+
+  useEffect(() => {
+    loadStatus()
+    loadPending()
+  }, [loadStatus, loadPending])
 
   async function handleSync() {
     if (!window.confirm(t('ingestion.confirmSync'))) return
@@ -55,6 +77,7 @@ export default function IngestionPage() {
       setSyncResult(res)
       // Refrescar estado después del sync
       await loadStatus()
+      await loadPending()
     } catch (err) {
       setError(err.message)
     } finally {
@@ -74,11 +97,14 @@ export default function IngestionPage() {
           </p>
         </div>
         <button
-          onClick={loadStatus}
-          disabled={loadingStatus}
+          onClick={async function () {
+            await loadStatus()
+            await loadPending()
+          }}
+          disabled={loadingStatus || loadingPending}
           className="flex items-center gap-1.5 rounded-md px-3 py-2 text-sm text-slate-500 hover:bg-slate-100 dark:hover:bg-slate-800 disabled:opacity-50"
         >
-          <RefreshCw className={cn('h-4 w-4', loadingStatus && 'animate-spin')} />
+          <RefreshCw className={cn('h-4 w-4', (loadingStatus || loadingPending) && 'animate-spin')} />
           {t('common.refresh')}
         </button>
       </div>
@@ -125,6 +151,72 @@ export default function IngestionPage() {
           <p className="mb-4 text-sm text-slate-500 dark:text-slate-400">
             {t('ingestion.syncDesc')}
           </p>
+
+          <div className="mb-4 rounded-lg border border-slate-200 bg-slate-50 p-3 dark:border-slate-700 dark:bg-slate-800">
+            <div className="mb-2 flex items-center justify-between">
+              <p className="text-sm font-medium text-slate-700 dark:text-slate-200">
+                {t('ingestion.pendingTitle')}
+              </p>
+              {loadingPending ? (
+                <span className="text-xs text-slate-400">{t('common.loading')}</span>
+              ) : (
+                <span className="text-xs text-slate-500 dark:text-slate-400">
+                  {t('ingestion.pendingSummary', {
+                    nuevos: Array.isArray(pending?.nuevos) ? pending.nuevos.length : 0,
+                    modificados: Array.isArray(pending?.modificados) ? pending.modificados.length : 0,
+                  })}
+                </span>
+              )}
+            </div>
+
+            {!loadingPending && (
+              <>
+                {Array.isArray(pending?.nuevos) && pending.nuevos.length > 0 && (
+                  <div className="mb-3">
+                    <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-emerald-700 dark:text-emerald-400">
+                      {t('ingestion.pendingNew')}
+                    </p>
+                    <ul className="max-h-40 overflow-auto space-y-1 text-xs text-slate-600 dark:text-slate-300">
+                      {pending.nuevos.map(function (doc) {
+                        const key = doc.ruta || doc.nombre
+                        return (
+                          <li key={key} className="rounded bg-white px-2 py-1 dark:bg-slate-900">
+                            <span className="font-medium">{doc.nombre || t('documents.noRuta')}</span>
+                            {doc.ruta && <span className="ml-2 text-slate-400">{doc.ruta}</span>}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                )}
+
+                {Array.isArray(pending?.modificados) && pending.modificados.length > 0 && (
+                  <div className="mb-2">
+                    <p className="mb-1 text-xs font-semibold uppercase tracking-wide text-amber-700 dark:text-amber-400">
+                      {t('ingestion.pendingModified')}
+                    </p>
+                    <ul className="max-h-40 overflow-auto space-y-1 text-xs text-slate-600 dark:text-slate-300">
+                      {pending.modificados.map(function (doc) {
+                        const key = doc.ruta || doc.nombre
+                        return (
+                          <li key={key} className="rounded bg-white px-2 py-1 dark:bg-slate-900">
+                            <span className="font-medium">{doc.nombre || t('documents.noRuta')}</span>
+                            {doc.ruta && <span className="ml-2 text-slate-400">{doc.ruta}</span>}
+                          </li>
+                        )
+                      })}
+                    </ul>
+                  </div>
+                )}
+
+                {(!Array.isArray(pending?.nuevos) || pending.nuevos.length === 0)
+                  && (!Array.isArray(pending?.modificados) || pending.modificados.length === 0) && (
+                    <p className="text-xs text-slate-500 dark:text-slate-400">{t('ingestion.pendingEmpty')}</p>
+                  )}
+              </>
+            )}
+          </div>
+
           <button
             onClick={handleSync}
             disabled={syncing || !status?.online}
