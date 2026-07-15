@@ -68,8 +68,6 @@ export default function FaqsPage() {
   const user    = useAuthStore(function (s) { return s.user })
   const isAdmin = user?.type === 'ADMIN'
 
-  const [title, setTitle]             = useState('')
-  const [description, setDescription] = useState('')
   const [faqs, setFaqs]               = useState([])
   const [loading, setLoading]         = useState(true)
   const [saving, setSaving]           = useState(false)
@@ -84,8 +82,6 @@ export default function FaqsPage() {
     try {
       const res = await authFetch('/api/faqs')
       const d   = res.data ?? {}
-      setTitle(d.title ?? '')
-      setDescription(d.description ?? '')
       setFaqs(Array.isArray(d.faqs) ? d.faqs : [])
     } catch (err) {
       setError(err.message)
@@ -96,17 +92,15 @@ export default function FaqsPage() {
 
   useEffect(function () { load() }, [load])
 
-  async function persist(newTitle, newDesc, newFaqs) {
+  async function persist(newFaqs) {
     setSaving(true)
     setError(null)
     try {
       const res = await authFetch('/api/faqs', {
         method: 'POST',
-        body:   JSON.stringify({ title: newTitle, description: newDesc, faqs: newFaqs }),
+        body:   JSON.stringify({ title: '', description: '', faqs: newFaqs }),
       })
       const d = res.data ?? {}
-      setTitle(d.title ?? newTitle)
-      setDescription(d.description ?? newDesc)
       setFaqs(Array.isArray(d.faqs) ? d.faqs : newFaqs)
       setSaved(true)
       setTimeout(function () { setSaved(false) }, 3000)
@@ -121,25 +115,21 @@ export default function FaqsPage() {
     const updated = faqs.concat([form])
     setFaqs(updated)
     setShowForm(false)
-    persist(title, description, updated)
+    persist(updated)
   }
 
   function handleUpdate(idx, form) {
     const updated = faqs.map(function (f, i) { return i === idx ? form : f })
     setFaqs(updated)
     setEditIdx(null)
-    persist(title, description, updated)
+    persist(updated)
   }
 
   function handleDelete(idx) {
     if (!window.confirm(t('faqs.confirmDelete'))) return
     const updated = faqs.filter(function (_, i) { return i !== idx })
     setFaqs(updated)
-    persist(title, description, updated)
-  }
-
-  function handleHeaderSave() {
-    persist(title, description, faqs)
+    persist(updated)
   }
 
   return (
@@ -176,45 +166,6 @@ export default function FaqsPage() {
         </div>
       )}
 
-      {/* Cabecera editable (solo admin) */}
-      {isAdmin && (
-        <div className="mb-6 rounded-xl border border-slate-200 bg-white p-4 dark:border-slate-700 dark:bg-slate-900 space-y-3">
-          <div>
-            <label className="mb-1 block text-xs font-medium text-slate-500">{t('faqs.headerTitle')}</label>
-            <input
-              value={title}
-              onChange={function (e) { setTitle(e.target.value) }}
-              className="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
-            />
-          </div>
-          <div>
-            <label className="mb-1 block text-xs font-medium text-slate-500">{t('faqs.headerDesc')}</label>
-            <textarea
-              value={description}
-              onChange={function (e) { setDescription(e.target.value) }}
-              rows={2}
-              className="w-full rounded-md border border-slate-200 bg-slate-50 px-3 py-2 text-sm focus:outline-none focus:ring-2 focus:ring-indigo-500 dark:border-slate-700 dark:bg-slate-800 dark:text-slate-100"
-            />
-          </div>
-          <div className="flex items-center gap-3">
-            <button
-              onClick={handleHeaderSave}
-              disabled={saving}
-              className="flex items-center gap-1.5 rounded-md bg-slate-700 px-4 py-2 text-sm font-medium text-white hover:bg-slate-800 disabled:opacity-50 dark:bg-slate-600 dark:hover:bg-slate-500"
-            >
-              <Check className="h-4 w-4" />
-              {saving ? t('faqs.saving') : t('faqs.saveHeader')}
-            </button>
-            {saved && (
-              <span className="flex items-center gap-1 text-sm text-emerald-600 dark:text-emerald-400">
-                <Check className="h-4 w-4" />
-                {t('common.saved')}
-              </span>
-            )}
-          </div>
-        </div>
-      )}
-
       {/* Formulario nueva FAQ */}
       {isAdmin && showForm && (
         <div className="mb-6">
@@ -234,6 +185,12 @@ export default function FaqsPage() {
         </div>
       ) : (
         <div className="space-y-3">
+          {saved && (
+            <div className="flex items-center gap-1 rounded-md border border-emerald-200 bg-emerald-50 px-3 py-2 text-sm text-emerald-700 dark:border-emerald-800 dark:bg-emerald-950 dark:text-emerald-300">
+              <Check className="h-4 w-4" />
+              {t('common.saved')}
+            </div>
+          )}
           {faqs.map(function (faq, idx) {
             return (
               <div key={idx} className="rounded-xl border border-slate-200 bg-white p-5 dark:border-slate-700 dark:bg-slate-900">
